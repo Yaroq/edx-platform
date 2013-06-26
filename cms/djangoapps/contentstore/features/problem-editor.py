@@ -19,7 +19,8 @@ def i_created_blank_common_problem(step):
         step,
         '.large-problem-icon',
         'problem',
-        '.xmodule_CapaModule'
+        '.xmodule_CapaModule',
+        'blank_common.yaml'
     )
 
 
@@ -32,12 +33,12 @@ def i_edit_and_select_settings(step):
 def i_see_five_settings_with_values(step):
     world.verify_all_setting_entries(
         [
-            [DISPLAY_NAME, "New problem", True],
+            [DISPLAY_NAME, "Blank Common Problem", False],
             [MAXIMUM_ATTEMPTS, "", False],
             [PROBLEM_WEIGHT, "", False],
             # Not sure why these are True other than via inspection
-            [RANDOMIZATION, "Always", True],
-            [SHOW_ANSWER, "Closed", True]
+            [RANDOMIZATION, "Never", False],
+            [SHOW_ANSWER, "Finished", False]
         ])
 
 
@@ -95,7 +96,7 @@ def my_change_to_randomization_is_persisted(step):
 def i_can_revert_to_default_for_randomization(step):
     world.revert_setting_entry(RANDOMIZATION)
     world.save_component_and_reopen(step)
-    world.verify_setting_entry(world.get_setting_entry(RANDOMIZATION), RANDOMIZATION, "Always", False)
+    world.verify_setting_entry(world.get_setting_entry(RANDOMIZATION), RANDOMIZATION, "Never", False)
 
 
 @step('I can set the weight to "(.*)"?')
@@ -204,7 +205,7 @@ def verify_modified_display_name_with_special_chars():
 
 
 def verify_unset_display_name():
-    world.verify_setting_entry(world.get_setting_entry(DISPLAY_NAME), DISPLAY_NAME, '', False)
+    world.verify_setting_entry(world.get_setting_entry(DISPLAY_NAME), DISPLAY_NAME, 'Blank Advanced Problem', False)
 
 
 def set_weight(weight):

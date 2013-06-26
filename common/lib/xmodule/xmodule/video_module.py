@@ -21,6 +21,14 @@ log = logging.getLogger(__name__)
 
 class VideoFields(object):
     """Fields for `VideoModule` and `VideoDescriptor`."""
+    display_name = String(
+        display_name="Display Name",
+        help="This name appears in the horizontal navigation at the top of the page.",
+        scope=Scope.settings,
+        # it'd be nice to have a useful default but it screws up other things; so,
+        # use display_name_with_default for those
+        default="Video Title"
+    )
     data = String(help="XML data for the problem",
         default='',
         scope=Scope.content)
@@ -115,6 +123,10 @@ class VideoDescriptor(VideoFields,
         display_name = xml.get('display_name')
         if display_name:
             video.display_name = display_name
+        elif video.url_name is not None:
+            # copies the logic of display_name_with_default in order that studio created videos will have an
+            # initial non guid name
+            video.display_name = video.url_name.replace('_', ' ')
 
         youtube = xml.get('youtube')
         if youtube:

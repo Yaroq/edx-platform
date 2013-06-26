@@ -193,7 +193,7 @@ class CourseFields(object):
             }},
             scope=Scope.content)
     show_calculator = Boolean(help="Whether to show the calculator in this course", default=False, scope=Scope.settings)
-    display_name = String(help="Display name for this module", scope=Scope.settings)
+    display_name = String(help="Display name for this module", default="Empty", scope=Scope.settings)
     tabs = List(help="List of tabs to enable in this course", scope=Scope.settings)
     end_of_course_survey_url = String(help="Url for the end-of-course survey", scope=Scope.settings)
     discussion_blackouts = List(help="List of pairs of start/end dates for discussion blackouts", scope=Scope.settings)
