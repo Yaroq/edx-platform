@@ -144,7 +144,9 @@ class VideoAlphaModule(VideoAlphaFields, XModule):
             caption_asset_path = "/static/subs/"
 
         return self.system.render_template('videoalpha.html', {
-            'youtube_streams': self.youtube_streams,
+            # render_template() converts Python None to string 'None'. Front-end expects an empty string, or
+            # a properly formatted string with YouTube IDs. We will return an empty string instead of 'None'.
+            'youtube_streams': self.youtube_streams if self.youtube_streams else '',
             'id': self.location.html_id(),
             'sub': self.sub,
             'sources': self.sources,
